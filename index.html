@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>untuk emaakuu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff7fb;
+      --bg-2: #ffe8f1;
+      --accent: #ff4d6d;
+      --accent-2: #ff8fa3;
+      --ink: #2a2a2a;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --ring: rgba(255, 77, 109, 0.25);
+      --shadow: rgba(255, 77, 109, 0.25);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 10% -10%, #ffe0ea 10%, transparent 50%),
+                  radial-gradient(900px 500px at 110% 10%, #ffe8f3 10%, transparent 50%),
+                  var(--bg);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+
+    /* Floating hearts background */
+    .hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .heart {
+      position: absolute; width: 14px; height: 14px; background: var(--accent);
+      transform: rotate(45deg); border-radius: 2px; opacity: .12;
+      animation: floatUp linear infinite;
+    }
+    .heart::before, .heart::after {
+      content: ""; position: absolute; width: 14px; height: 14px; background: var(--accent);
+      border-radius: 50%;
+    }
+    .heart::before { left: -7px; }
+    .heart::after { top: -7px; }
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(45deg); }
+      to { transform: translateY(-120vh) rotate(45deg); }
+    }
+
+    header.hero {
+      position: relative;
+      padding: 96px 0 72px;
+      z-index: 1;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+      background: #fff; border: 1px solid var(--ring); border-radius: 999px;
+      box-shadow: 0 10px 30px -12px var(--shadow);
+      font-size: 14px; color: var(--muted);
+    }
+    .title {
+      font-family: 'Dancing Script', cursive; font-size: clamp(40px, 8vw, 86px);
+      line-height: 1; margin: 16px 0 12px; color: var(--accent);
+      text-shadow: 0 6px 20px rgba(255,77,109,.2);
+    }
+    .subtitle { font-size: clamp(16px, 2.5vw, 20px); color: var(--muted); margin: 0; }
+
+    .cta {
+      margin-top: 28px; display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border-radius: 14px; border: 1px solid var(--ring);
+      background: linear-gradient(180deg, #fff, #fff5f8);
+      box-shadow: 0 20px 40px -24px var(--shadow);
+      cursor: pointer; transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 24px 50px -26px var(--shadow); }
+
+    /* Cards */
+    .grid { display: grid; gap: 22px; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(12, 1fr); } }
+
+    .card {
+      background: var(--card); border: 1px solid #ffe3ec; border-radius: 22px;
+      padding: 22px; box-shadow: 0 20px 50px -34px rgba(255, 77, 109, 0.35);
+      position: relative; z-index: 1;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 20px; }
+    .card p { margin: 8px 0 0; color: var(--muted); }
+
+    /* Polaroids */
+    .polaroid {
+      background: #fff; border-radius: 20px; padding: 12px 12px 18px; border: 1px solid #ffd5e0;
+      box-shadow: 0 16px 40px -26px rgba(0,0,0,.2), 0 12px 26px -28px rgba(255,77,109,.35);
+      transform: rotate(var(--r, -2deg)); transition: transform .15s ease;
+    }
+    .polaroid:hover { transform: rotate(0deg) translateY(-2px); }
+    .polaroid img { width: 100%; height: 260px; object-fit: cover; border-radius: 14px; display: block; }
+    .polaroid .cap { text-align: center; margin-top: 10px; color: #555; font-size: 14px; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 22px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 2px;
+    }
+    .titem { position: relative; margin: 14px 0 14px 0; }
+    .titem::before {
+      content: "💘"; position: absolute; left: -4px; transform: translate(-50%, 2px); top: 0; font-size: 14px;
+    }
+    .tdate { font-weight: 600; color: var(--accent); }
+
+    /* Love notes */
+    .notes { display: grid; gap: 12px; }
+    .note {
+      background: #fff; border: 1px dashed #ffb4c3; border-radius: 14px; padding: 14px;
+      font-size: 15px; color: #444; box-shadow: 0 8px 24px -18px rgba(255,77,109,.35);
+    }
+    .note small { color: var(--muted); }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 40px 0 80px; color: var(--muted);
+    }
+
+    /* Buttons, inputs */
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .input, textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #ffd5e0; outline: none;
+      background: #fff; font: inherit; color: var(--ink);
+      box-shadow: 0 12px 30px -26px rgba(0,0,0,.3);
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 12px;
+      border: none; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer;
+      box-shadow: 0 16px 32px -20px var(--shadow);
+    }
+    .btn:active { transform: translateY(1px); }
+
+    /* Sections spacing */
+    section { margin: 34px 0; }
+
+    /* Dark mode tweak */
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d0b10; --bg-2: #1a141a; --ink: #f2f2f2; --muted: #b7b7c0; --card: #171318; --ring: rgba(255,122,146,.2); }
+      .polaroid, .note { background: #1b151a; }
+      .badge { background: #1d151b; }
+      .cta { background: linear-gradient(180deg, #1e171c, #151015); }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+  <header class="hero">
+    <div class="container">
+      <span class="badge" aria-label="Love badge">💞 Sejak <strong id="sinceText">selalu</strong> &mdash; ditakdirkan bersama</span>
+      <h1 class="title" contenteditable spellcheck="false" id="coupleName" title="Klik untuk ubah nama">
+        Selma &amp; Jefry
+      </h1>
+      <p class="subtitle">Sebuah halaman kecil untuk merayakan tawa, air mata, dan setiap detik yang terasa rumah.</p>
+      <button class="cta" id="celebrateBtn" aria-label="Rayakan cinta">✨ Rayakan momen</button>
+    </div>
+  </header>
+
+  <main class="container" style="position: relative; z-index: 1;">
+    <section class="grid" aria-label="Galeri kenangan">
+      <div class="polaroid" style="--r:-3deg; grid-column: span 12;" aria-live="polite">
+        <img src="https://i.ibb.co.com/tMvmp1Kn/IMG-20250817-221727.jpg" alt="Berpegangan tangan di bawah langit senja" />
+        <div class="cap">"Cinta adalah dua hati yang memilih pulang di tempat yang sama."</div>
+      </div>
+
+      <div class="polaroid" style="--r:2deg; grid-column: span 12; min-height: 0;" aria-hidden="true">
+        <img src="https://i.ibb.co.com/WWz8ThNH/IMG-20250817-233934.jpg" alt="Tertawa bersama" />
+       <div class="cap">Kamu ituu bidadari tanpa sayapku ✨</div>
+      </div>
+
+      <div class="grid" style="grid-column: span 12; gap: 18px;">
+        <div class="polaroid" style="--r:-4deg; grid-column: span 12; min-height: 0;">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop" alt="Jalan santai berdua" />
+          <div class="cap">"Terus bersama sampai kita tua nanti yaa."</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Kisah singkat">
+      <div class="card" style="grid-column: span 12;">
+        <h3>magic words
+        <p>
+          haii emakuu tercintaa, mpii cumaa mauu bilangg kaloo mpii tuu sayangg bangett samaa emaa, makasii yaa emaa udaa mauu bertahann sampaii sekarangg, makasii jugaa emaa udaa selaluu maaffin mpii dann selaluu ngasii mpii kesempatann lagii, maaffin mpii yaa karena mpii kadang masi suka egois, masi sering buat ema kecewa dan badmood, pokoknyaa mpii sayangg bgtt samaa emaa, mpii bikinn inii untuk hadiahh kecill untuk emakuu tercintaa.
+        </p>
+      </div>
+
+      <div class="card" style="grid-column: span 12;">
+        <h3>Timeline</h3>
+        <div class="timeline" id="timeline">
+          <div class="titem"><span class="tdate">-10 Agustus 2023</span> — "Hari pertama kali kamu ngechat aku."</div>
+          <div class="titem"><span class="tdate">-Kelas 9</span> — "Walaupun di kelas 9 kita banyak masalah, tapi aku paling rindu moment kita di kelas 9."</div>
+          <div class="titem"><span class="tdate">-Now</span> — "Aku sayang kamu lebih dari apapun, aku nyesel perna nyakitin kamu berkali kali." </div>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column: span 12;">
+        <h3>Catatan Cinta</h3>
+        <div class="notes" id="notes"></div>
+        <div class="row" style="margin-top: 10px;">
+          <input class="input" id="noteTitle" placeholder="Judul catatan (opsional)" />
+          <textarea id="noteBody" placeholder="Tulis pesan manis."></textarea>
+          <button class="btn" id="addNote">Tambahkan Catatan</button>
+        </div>
+        <p style="margin-top:10px; color: var(--muted); font-size: 13px;">Pesan tulus untukmu.</p>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Kartu janji">
+      <div class="card" style="grid-column: span 12;">
+        <h3>date of acquaintance</h3>
+        <div class="row" style="align-items: center; gap: 12px; flex-wrap: wrap;">
+          <label style="font-size:14px; color:var(--muted);">Awal Kenal:
+            <input class="input" type="date" id="since" style="width:auto; margin-left:8px;" />
+          </label>
+          <button class="btn" id="saveSince">Simpan</button>
+          <div id="counter" style="margin-left:auto; font-weight:600;">
+            ❤️ Hari bersama: <span id="daysTogether">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Dibuat dengan <span aria-label="cinta" role="img">❤️</span> — oleh mpii.
+  </footer>
+
+  <script>
+    // Floating hearts spawner
+    const hearts = document.getElementById('hearts');
+    function spawnHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = Math.random()*10 + 6; // 6-16
+      h.style.width = size+'px';
+      h.style.height = size+'px';
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.bottom = '-20px';
+      const dur = Math.random()*6 + 8; // 8-14s
+      h.style.animationDuration = dur+'s';
+      h.style.opacity = 0.08 + Math.random()*0.12;
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(), dur*1000);
+    }
+    for (let i=0;i<24;i++) setTimeout(spawnHeart, i*300);
+    setInterval(spawnHeart, 600);
+
+    // Celebrate confetti hearts on button
+    document.getElementById('celebrateBtn').addEventListener('click', () => {
+      for (let i=0;i<40;i++) setTimeout(spawnHeart, i*40);
+    });
+
+    // Love Notes with localStorage
+    const notesKey = 'love_notes_v1';
+    const notesEl = document.getElementById('notes');
+    const noteTitle = document.getElementById('noteTitle');
+    const noteBody = document.getElementById('noteBody');
+    const addNoteBtn = document.getElementById('addNote');
+
+    function loadNotes(){
+      const arr = JSON.parse(localStorage.getItem(notesKey) || '[]');
+      notesEl.innerHTML = '';
+      if (arr.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'note';
+        empty.innerHTML = 'Belum ada catatan. Tulis pesan pertama kalian!';
+        notesEl.appendChild(empty);
+        return;
+      }
+      arr.forEach((n, idx) => {
+        const d = document.createElement('div');
+        d.className = 'note';
+        d.innerHTML = `<strong>${n.title || 'Catatan Manis'}</strong><br>${n.body}<br><small>${new Date(n.time).toLocaleString()}</small>`;
+        d.addEventListener('dblclick', () => {
+          if (confirm('Hapus catatan ini?')) {
+            arr.splice(idx,1); localStorage.setItem(notesKey, JSON.stringify(arr)); loadNotes();
+          }
+        });
+        notesEl.appendChild(d);
+      });
+    }
+    addNoteBtn.addEventListener('click', () => {
+      const t = noteTitle.value.trim();
+      const b = noteBody.value.trim();
+      if (!b) return alert('Tulis pesannya dulu ya!');
+      const arr = JSON.parse(localStorage.getItem(notesKey) || '[]');
+      arr.unshift({ title: t, body: b, time: Date.now() });
+      localStorage.setItem(notesKey, JSON.stringify(arr));
+      noteTitle.value = ''; noteBody.value='';
+      loadNotes();
+    });
+    loadNotes();
+
+    // Since date & counter
+    const sinceInput = document.getElementById('since');
+    const saveSinceBtn = document.getElementById('saveSince');
+    const daysEl = document.getElementById('daysTogether');
+    const sinceText = document.getElementById('sinceText');
+    const sinceKey = 'love_since_date';
+
+  function updateDays() {
+  let val = localStorage.getItem(sinceKey);
+
+  // kalau belum ada di localStorage, pakai default 10 Agustus 2023
+  if (!val) {
+    val = "2023-08-10"; 
+    localStorage.setItem(sinceKey, val);
+  }
+
+  const d = new Date(val);
+  const now = new Date();
+  const diff = Math.floor((now - d) / (1000*60*60*24));
+  daysEl.textContent = diff;
+  sinceText.textContent = d.toLocaleDateString();
+  sinceInput.value = val;
+}
+
+    saveSinceBtn.addEventListener('click', () => {
+      if (!sinceInput.value) return alert('Pilih tanggal dulu ya!');
+      localStorage.setItem(sinceKey, sinceInput.value);
+      updateDays();
+    });
+    updateDays();
+
+    // Editable names -> save
+    const nameKey = 'love_couple_name';
+    const coupleNameEl = document.getElementById('coupleName');
+    coupleNameEl.addEventListener('input', () => localStorage.setItem(nameKey, coupleNameEl.textContent.trim()));
+    (function initName(){
+      const saved = localStorage.getItem(nameKey);
+      if (saved) coupleNameEl.textContent = saved;
+    })();
+  </script>
+</body>
+</html>
+
